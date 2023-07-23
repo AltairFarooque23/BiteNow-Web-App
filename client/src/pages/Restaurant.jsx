@@ -6,9 +6,11 @@ import SearchLens from "../Assets/search.png";
 import Cart from "../Assets/cart.png";
 import User from "../Assets/user.png";
 import menuitem from "../Assets/menuitem.png"
+import MenuListIcon from "../Assets/menulist.png"
 
 import CategoryCarousals from '../components/Home/CategoryCarousals';
 import MenuItemCard from '../components/Restaurant/MenuItemCard';
+import Footer from "../components/common components/Footer"
 
 import { mock } from '../MockData';
 
@@ -17,7 +19,7 @@ function Restaurant() {
   return (
     <div className='w-full flex flex-col items-center overflow-x-hidden scroll-smooth'>
          {/* nav bar */}
-         <nav className='w-full h-[12vh] flex items-center justify-evenly px-12'>
+         <nav className='w-full h-[12vh] flex items-center justify-evenly px-12 bg-white z-20'>
           {/* brand name */}
           <div className='w-[15%] flex items-center justify-center'>
              <p className='text-2xl font-bold'>
@@ -56,7 +58,7 @@ function Restaurant() {
           </div>
         </nav>
         {/* Restaurant info */}
-        <div className='w-full px-36 flex items-center my-6'>
+        <div className='w-full px-36 flex items-center my-6 bg-sky-50'>
             <div className='w-full mx-32 my-8'>
                 <p className='text-2xl font-bold my-2'>
                     Haveli Restaurant
@@ -83,7 +85,7 @@ function Restaurant() {
         <CategoryCarousals  data = {mock.Home.TrendingItems} title ={"Top Dishes"} type={1} />
         <CategoryCarousals  data = {mock.Home.TrendingItems} title ={"Most Ordered"} type={2} />
 
-        <div className='w-full flex flex-col items-center px-36'>
+        <div className='w-full flex flex-col items-center px-36 mb-28'>
               <div className='w-full mb-14'>
                 <p className='text-2xl font-semibold'>
                     Restuarant's Menu
@@ -93,8 +95,24 @@ function Restaurant() {
               <div className='w-full mb-12'>
                   <p className='text-xl font-medium text-zinc-500'>Main Course</p>
               </div>
-              <MenuItemCard src={menuitem} />
+              {( mock.Home.TrendingItems.dishes?.map((item, index) =>{
+                      return <MenuItemCard  key={index}
+                                            name={item.Name}
+                                            src={menuitem}
+                                            price={item.Price}
+                                            orders={1.5}
+                                            descr={item.Description}
+                                            ratings={item.Rating}
+                                            />
+                    }))
+              }
         </div>
+        <div className='fixed bottom-2 w-full h-max flex flex-col items-center mb-12 z-30'>
+           <button className=' bg-slate-950 flex items-center text-white px-6 py-2 rounded-md shadow-md'>
+               Restuarant's Menu <img className='ml-4' src={MenuListIcon} alt="" width={24} />
+           </button>
+        </div>
+        <Footer />
     </div>
   )
 }
