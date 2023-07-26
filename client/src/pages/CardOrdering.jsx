@@ -8,32 +8,14 @@ import discount from "../Assets/discount.png"
 
 import CartItemCard from '../components/Cart/CartItemCard';
 import Footer from '../components/common components/Footer';
+import NavBar from '../components/Navigation components/NavBar';
 
 function CardOrdering() {
   return (
     <div className='w-full flex flex-col items-center overflow-x-hidden scroll-smooth  bg-sky-50'>
         {/* nav bar */}
-        <nav className='w-full h-[12vh] flex items-center justify-between px-12 bg-white z-20'>
-          {/* brand name */}
-          <div className='w-[15%] flex items-center justify-center'>
-             <p className='text-2xl font-bold'>
-              <span className='text-green-400'>Bite</span>Now
-             </p>
-          </div>
-          <div className='w-[30%] flex items-center justify-evenly'>
-                <div className='h-full flex items-center relative' >
-                    <div className='relative flex items-center justify-center'>
-                        <img src={Cart} alt="" width={44} />
-                        <p className='absolute mt-1 font-semibold text-green-500'>0</p>
-                    </div>
-                    <p className='text-xl font-semibold ml-2'>Cart</p>
-                </div>
-                <div className='h-full flex items-center justify-start'>
-                    <p className='text-lg text-slate-800 font-medium mr-4'>Altair Farooque</p>
-                    <img src={User} alt="" width={36} />
-                </div>
-          </div>
-        </nav>
+        <NavBar showSeachBar={false}/>
+        
         <div className='w-full px-12 flex items-start justify-evenly my-24'>
             <div className='w-[50%]'>
                     {/* address section */}

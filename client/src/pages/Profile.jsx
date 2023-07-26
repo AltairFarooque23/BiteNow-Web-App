@@ -5,7 +5,10 @@ import User from "../Assets/user.png";
 import phone from "../Assets/phone-call.png";
 import email from "../Assets/email.png";
 import edit from "../Assets/edit.png";
+
+// components
 import Footer from '../components/common components/Footer';
+import NavBar from '../components/Navigation components/NavBar';
 
 import Orders from "../Assets/shopping-bag.png"
 import FaQ from "../Assets/chat.png"
@@ -16,27 +19,7 @@ function Profile() {
   return (
     <div className='w-full flex flex-col items-center overflow-x-hidden scroll-smooth'>
             {/* nav bar */}
-            <nav className='w-full h-[12vh] flex items-center justify-between px-12 bg-white z-20'>
-            {/* brand name */}
-            <div className='w-[15%] flex items-center justify-center'>
-                <p className='text-2xl font-bold'>
-                <span className='text-green-400'>Bite</span>Now
-                </p>
-            </div>
-            <div className='w-[30%] flex items-center justify-evenly'>
-                    <div className='h-full flex items-center relative' >
-                        <div className='relative flex items-center justify-center'>
-                            <img src={Cart} alt="" width={44} />
-                            <p className='absolute mt-1 font-semibold text-green-500'>0</p>
-                        </div>
-                        <p className='text-xl font-semibold ml-2'>Cart</p>
-                    </div>
-                    <div className='h-full flex items-center justify-start'>
-                        <p className='text-lg text-slate-800 font-medium mr-4'>Altair Farooque</p>
-                        <img src={User} alt="" width={36} />
-                    </div>
-            </div>
-            </nav>
+            <NavBar showSeachBar={false}/>
             <div className='w-full px-28 my-10'>
                 <p className='text-2xl font-medium my-4'>Altair Farooque</p>
                 <div className='w-full flex items-center justify-between px-4'>

@@ -1,4 +1,4 @@
-import React ,{useRef} from 'react'
+import React ,{useState,useRef} from 'react'
 import Slider from "react-slick"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -18,6 +18,16 @@ import mostOrderedDish from "../../Assets/mostdish.png"
 function CategoryCarousals({data,title,type}) {
 
   const sliderRef = useRef(null);
+  const [isCarouselInteracting, setCarouselInteracting] = useState(false);
+
+  const handleCarouselBeforeChange = () => {
+    setCarouselInteracting(true);
+  };
+
+  const handleCarouselAfterChange = () => {
+    setCarouselInteracting(false);
+  };
+
 
   //   const slideToNextSlide = () =>{
   //         sliderRef.current.slickNext()
@@ -32,7 +42,8 @@ function CategoryCarousals({data,title,type}) {
     infinite : false,
     speed: 700,
     slidesToShow : data.type === 0 ? 3.5 : data.type === 1 ? 3.7 : 5.0,
-    slidesToScroll : 1
+    beforeChange: handleCarouselBeforeChange,
+    afterChange: handleCarouselAfterChange,
   }
 
   return (
@@ -52,6 +63,7 @@ function CategoryCarousals({data,title,type}) {
                                               ratings={item.rating}
                                               categories={item.catLog}
                                               price={item.cost}
+                                              isCarouselInteracting={isCarouselInteracting}
                                               deliveryTime={item.deliveryTime}/>
                     }))
                   }
