@@ -50,14 +50,29 @@ export function checkPasswordStrength(password){
     }
 }
 
-export function  comparePasswords(pwd,cpwd){
-    if(cpwd === ''){
-      return "Please re-enter your password";
-    }
-    else if(!(pwd === cpwd)){
-      return "Password must be same"
-    }
-    else{
-      return ''
-    }
-}
+export function validateFrom(formData,formErrors,setformErrors){ 
+      let hasErrors = false 
+      // check username ✅ 
+      if(formData.username === ''){
+         setformErrors(formErrors => ({ 
+          ...formErrors,
+           username: isFieldEmpty("field.username",formData.username) }));
+            hasErrors = true }
+      // check email ✅
+      if(formData.email === ''){ 
+        setformErrors(formErrors => ({ 
+          ...formErrors,
+           email: isFieldEmpty("field.email",formData.email) }));
+            hasErrors = true } 
+      // check passwaord ✅
+      if(formData.password === ''){ 
+        setformErrors(formErrors => ({ 
+          ...formErrors, password: isFieldEmpty("field.password",formData.password) }));
+           hasErrors = true }
+      if(formData.password !== '' && checkPasswordStrength(formData.password) !== ''){
+         setformErrors(formErrors => ({ 
+          ...formErrors, 
+          password: checkPasswordStrength(formData.password) })); 
+          hasErrors = true }
+
+return hasErrors }
