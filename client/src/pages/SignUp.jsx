@@ -9,6 +9,7 @@ import FormField from '../components/Forms/FormField';
 
 // icons
 import { User,Key ,CardPos ,Mobile} from 'iconsax-react';
+import { validateFrom } from '../utils/FormValidations';
 
 
 
@@ -20,23 +21,45 @@ function SignUp() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-      userName: '',
+      username: '',
       email: '',
       password: '',
-      confirmPassword :''
     });
-  
     const [formErrors,setformErrors] = useState({
-      userName: '',
+      username: '',
       email: '',
       password: '',
-      confirmPassword :''
     })
+    
 
     const handleInputChange =(name , value) =>{
         setFormData({ ...formData, [name]: value });
     }
+    const nullFormErrorOnFocus = (name) => {
+      setformErrors({ ...formErrors, [name]: '' });
+    }
 
+    const validatingFormsBeforeSignUp = (event)=>{
+      event.preventDefault();
+      let validateCheck = validateFrom(formData,formErrors,setformErrors);
+      if(!validateCheck){
+        AxiosActionUserRegister()
+      }
+    }
+    // this will store the JWT token for Authorization
+    // then will navigate to home page
+    const onUserRegister = (token ,userID) =>{
+      sessionStorage.setItem("authToken" ,token);
+      sessionStorage.setItem("userID",userID);
+      // redirecting user to home page
+      navigate("/",{replace:true})
+    }
+
+    const AxiosActionUserRegister = async () =>{
+          console.log("this will send form data and get response from the server")
+    }
+    
+    // this will redirect to sign in page
     const navToSignin = ()=>{
          navigate("/signin")
     }
@@ -61,28 +84,31 @@ function SignUp() {
                     </p>
                   </button>
               </div>
-              <form onSubmit={''} className='w-[68%] mt-12 flex flex-col items-center'>
-                        <FormField name={"Username"}
-                                  type={'text'} 
-                                  placeholder={'Name'}
-                                  icon={ <User /> }
-                                  error={""}
-                                  handleInput={handleInputChange}
-                                  />
-                        <FormField name={"Email"}
-                                  type={'email'} 
-                                  placeholder={'Example123@domain.com'}
-                                  icon={ <CardPos /> }
-                                  error={""}
-                                  handleInput={handleInputChange}
-                                  />
-                        <FormField name={"Password"}
-                                  type={'password'} 
-                                  placeholder={'********'}
-                                  icon={ <Key /> }
-                                  error={""}
-                                  handleInput={handleInputChange}
-                                  />
+              <form onSubmit={validatingFormsBeforeSignUp} className='w-[68%] mt-12 flex flex-col items-center'>
+              <FormField name={"username"}
+                              type={'text'} 
+                              placeholder={'Name'}
+                              icon={ <User /> }
+                              error={formErrors.username}
+                              focusAfterError={nullFormErrorOnFocus}
+                              handleInput={handleInputChange}
+                              />
+                    <FormField name={"email"}
+                              type={'email'} 
+                              placeholder={'Example123@domain.com'}
+                              icon={ <CardPos /> }
+                              error={formErrors.email}
+                              focusAfterError={nullFormErrorOnFocus}
+                              handleInput={handleInputChange}
+                              />
+                    <FormField name={"password"}
+                              type={'password'} 
+                              placeholder={'********'}
+                              icon={ <Key /> }
+                              error={formErrors.password}
+                              focusAfterError={nullFormErrorOnFocus}
+                              handleInput={handleInputChange}
+                              />
                   <button className='w-[75%] h-[5vh] text-white bg-slate-950 rounded-lg shadow-lg mt-8'>
                       Create Account
                   </button>
