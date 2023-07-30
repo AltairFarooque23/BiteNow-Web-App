@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 // assets
 import GoogleICon from "../Assets/Google.png";
 import Facebook from "../Assets/meta.png";
@@ -50,7 +51,6 @@ function SignUp() {
     // then will navigate to home page
     const onUserRegister = (token ,userID) =>{
       sessionStorage.setItem("authToken" ,token);
-      sessionStorage.setItem("userID",userID);
       // redirecting user to home page
       navigate("/",{replace:true})
     }
@@ -67,6 +67,7 @@ function SignUp() {
     // signup with Google
     const AxiosSignUpWithGoogle = async (e)=>{
           e.preventDefault()
+          window.location = "http://localhost:8000/auth/google";
     }
 
     // signup with facebook
@@ -74,6 +75,16 @@ function SignUp() {
           e.preventDefault()
 
     }
+
+    useEffect(()=>{
+      const urlParams = new URLSearchParams(window.location.search)
+      const token = urlParams.get('token');
+      if(token){
+        sessionStorage.setItem("authToken",token)
+        navigate('/',{replace:true})
+      }
+
+    },[])
 
     return (
       <div className="w-full h-[100vh] flex items-center">
