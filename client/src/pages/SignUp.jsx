@@ -64,6 +64,17 @@ function SignUp() {
          navigate("/signin")
     }
 
+    // signup with Google
+    const AxiosSignUpWithGoogle = async (e)=>{
+          e.preventDefault()
+    }
+
+    // signup with facebook
+    const AxiosSignUpWithFacebook = async (e)=>{
+          e.preventDefault()
+
+    }
+
     return (
       <div className="w-full h-[100vh] flex items-center">
           <div className="w-[40%] h-full flex flex-col items-center">
@@ -73,11 +84,11 @@ function SignUp() {
                 Sign up now to enjoy a seamless food delivery experience
               </p>
               <div className='w-[75%] flex justify-evenly mt-6'>
-                  <button className='w-[13vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
+                  <button onClick={AxiosSignUpWithGoogle} className='w-[13vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
                       <img src={GoogleICon} alt="" width={18}/>
                       <p className='text-lg font-medium ml-2'>Google</p>
                   </button>
-                  <button className='w-[13vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
+                  <button onClick={AxiosSignUpWithFacebook} className='w-[13vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
                     <img src={Facebook} alt="" width={20}/>
                     <p className='text-lg font-medium ml-2'>
                       Facebook
