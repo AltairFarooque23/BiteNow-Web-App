@@ -1,6 +1,7 @@
 const userModel = require("../Models/User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { Passport } = require("passport");
 
 
 const signUpWithEmail = async (req,res) =>{
@@ -76,9 +77,15 @@ const signInWithEmail = async (req,res) =>{
     
 }
 
-const signUpWithGoogle = async (res,req)=>{
-    
+
+const GoogleAuthCallback = async (req,res) =>{
+    const token = jwt.sign({
+                            id: req.user.id },
+                            process.env.JWT_TOKEN_SECRET_KEY,
+                            { expiresIn: '12h' }
+                         );
+    res.redirect(`http://localhost:3000/signup/?token=${token}`);
 }
 
 
-module.exports = {signUpWithEmail,signInWithEmail}
+module.exports = {signUpWithEmail,signInWithEmail,GoogleAuthCallback}
