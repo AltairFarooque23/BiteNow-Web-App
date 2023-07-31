@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 // assets
 import GoogleICon from "../Assets/Google.png";
 import Facebook from "../Assets/meta.png";
@@ -73,18 +72,9 @@ function SignUp() {
     // signup with facebook
     const AxiosSignUpWithFacebook = async (e)=>{
           e.preventDefault()
+          window.location = "http://localhost:8000/auth/facebook";
 
     }
-
-    useEffect(()=>{
-      const urlParams = new URLSearchParams(window.location.search)
-      const token = urlParams.get('token');
-      if(token){
-        sessionStorage.setItem("authToken",token)
-        navigate('/',{replace:true})
-      }
-
-    },[])
 
     return (
       <div className="w-full h-[100vh] flex items-center">

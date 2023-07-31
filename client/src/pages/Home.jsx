@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import NavBar from '../components/Navigation components/NavBar';
 
 import { mock } from '../MockData';
-
 // Componnets
 import BannersCarousal from '../components/Home/BannersCarousal';
 import CategoryCarousals from '../components/Home/CategoryCarousals';
 import MostFaqComponent from '../components/Home/MostFaqComponent';
 import SearchResultsContainer from '../components/Searchbar/SearchResultsContainer';
 import Footer from '../components/common components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   return (
