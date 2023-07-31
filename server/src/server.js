@@ -1,15 +1,48 @@
 const express = require("express"); 
 const mongoose = require("mongoose"); 
 const cors = require("cors");
-
+const cookieParser = require('cookie-parser');
+const session = require("express-session");
+const passport = require("passport")
+// user model for passport auth-session
+const User = require('./Models/User')
 const app = express();
 
 app.use(express.json()); 
 app.use(cors())
+app.user(cookieParser())
 
 // .env configs
  const dotenv = require("dotenv"); 
  dotenv.config();
+
+// adding session middleware for passport login
+
+app.use(session({
+    secret : process.env.EXPRESS_SESSION_SECRET_KEY,
+    resave:false,
+    saveUninitialized : true
+}))
+
+// initializing passport
+app.use(passport.initialize());
+app.use(passport.session())
+
+// serialize and de-serialize the session user
+
+passport.serializeUser((user,done)=>{
+    done(null,user.id);
+})
+
+passport.deserializeUser(async (id,done)=>{
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+      } catch (err) {
+        done(err);
+      }
+})
+
 
 // import routes
 const userRouter = require('./Routes/UserRoutes');
