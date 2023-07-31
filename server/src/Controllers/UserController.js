@@ -84,8 +84,18 @@ const GoogleAuthCallback = async (req,res) =>{
                             process.env.JWT_TOKEN_SECRET_KEY,
                             { expiresIn: '12h' }
                          );
-    res.redirect(`http://localhost:3000/signup/?token=${token}`);
+    res.cookie('authToken', token, { httpOnly: true });
+    res.redirect(`http://localhost:3000/`);
 }
 
+const FacebookAuthCallback = async (req,res) =>{
+    const token = jwt.sign({
+        id: req.user.id },
+        process.env.JWT_TOKEN_SECRET_KEY,
+        { expiresIn: '12h' }
+     );
+     res.cookie('authToken', token, { httpOnly: true });
+     res.redirect(`http://localhost:3000/`);
+}
 
-module.exports = {signUpWithEmail,signInWithEmail,GoogleAuthCallback}
+module.exports = {signUpWithEmail,signInWithEmail,GoogleAuthCallback,FacebookAuthCallback}
