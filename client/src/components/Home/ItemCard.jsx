@@ -2,8 +2,8 @@ import React from 'react'
 
 function ItemCard({src,name , price,descr, ratings,type}) {
   return (
-    <div className='relative w-[18vw] h-[50vh] bg-white border-2 rounded-lg mx-4 my-4 cursor-pointer scroll-smooth'>
-          <div className="relative w-full h-[50%] bg-cover bg-center rounded-t-lg" 
+    <div className='relative w-[18vw] h-[50vh] bg-white border-2 rounded-xl mx-4 my-4 cursor-pointer scroll-smooth'>
+          <div className="relative w-full h-[50%] bg-cover bg-center rounded-t-xl" 
                style={{ backgroundImage: `url(${src})` }}>
                 <p className={`absolute bg-white right-2 bottom-2 px-2 py-[1px] rounded text-sm font-semibold ${type==='veg' ? 'text-sky-600' : 'text-red-600'}`}>
                   {type}

@@ -11,8 +11,8 @@ function RestuarantCard({src, name , categories, price ,ratings, deliveryTime,is
         }
     }
     return (
-        <div onClick={navToRestuarant} className='w-[20vw] h-[50vh] bg-white border-2 rounded-lg mx-4 my-4 cursor-pointer scroll-smooth'>
-            <div className="w-full h-[50%] bg-cover bg-center rounded-t-lg" 
+        <div onClick={navToRestuarant} className='w-[20vw] h-[50vh] bg-white border-2 rounded-xl mx-4 my-4 cursor-pointer scroll-smooth'>
+            <div className="w-full h-[50%] bg-cover bg-center rounded-t-xl" 
                         style={{ backgroundImage: `url(${src})` }}>
                     </div>
             <div className='w-full h-[30%] flex flex-col items-start justify-evenly pl-4 mt-2'>
