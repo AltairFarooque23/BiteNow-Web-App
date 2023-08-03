@@ -77,6 +77,11 @@ const signInWithEmail = async (req,res) =>{
     
 }
 
+const RegisterUsingPhoneOTP = async (req,res) =>{
+        const {number,countyCode} = req.body;
+        
+}
+
 
 const GoogleAuthCallback = async (req,res) =>{
     const token = jwt.sign({

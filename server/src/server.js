@@ -10,7 +10,7 @@ const app = express();
 
 app.use(express.json()); 
 app.use(cors())
-app.user(cookieParser())
+app.use(cookieParser())
 
 // .env configs
  const dotenv = require("dotenv"); 
