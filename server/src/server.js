@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const session = require("express-session");
-const passport = require("passport")
+const passport = require("passport");
+
+const {InsertJsonToCollection} = require("./AddDataToCollection")
 // user model for passport auth-session
 const User = require('./Models/User')
 const app = express();
@@ -16,8 +18,8 @@ app.use(cookieParser())
  const dotenv = require("dotenv"); 
  dotenv.config();
 
+ const connectURLMongoDb = `mongodb+srv://AltairFarooque:${process.env.MONGODB_API_DB_KEY}@bitenowwebapp.z4fis5r.mongodb.net/?retryWrites=true&w=majority`
 // adding session middleware for passport login
-
 app.use(session({
     secret : process.env.EXPRESS_SESSION_SECRET_KEY,
     resave:false,
@@ -54,11 +56,16 @@ app.get('/' ,(req,res)=>{
     res.send("Server running on port 8000") 
 })
 
+app.get('/upload-data-to-collection',(req,res)=>{
+    InsertJsonToCollection(connectURLMongoDb)
+    res.send("⚠️ Do not reload this page as data is being added to collection in background! ⚠️ You can close this window now 👍🏻");
+})
+
 // initialize the end points for the above routes
 app.use("/auth",userRouter);
 
 // connect to MongoDB cluster
-mongoose.connect(`mongodb+srv://AltairFarooque:${process.env.MONGODB_API_DB_KEY}@bitenowwebapp.z4fis5r.mongodb.net/?retryWrites=true&w=majority`) 
+mongoose.connect(connectURLMongoDb)
 .then(()=>{
      console.log("Connected to MongoDB🍀")
      app.listen(8000,()=>{
