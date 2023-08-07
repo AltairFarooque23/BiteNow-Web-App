@@ -48,11 +48,11 @@ function SignUp() {
     }
     // this will store the JWT token for Authorization
     // then will navigate to home page
-    const onUserRegister = (token ,userID) =>{
-      sessionStorage.setItem("authToken" ,token);
-      // redirecting user to home page
-      navigate("/",{replace:true})
-    }
+    // const onUserRegister = (token ,userID) =>{
+    //   sessionStorage.setItem("authToken" ,token);
+    //   // redirecting user to home page
+    //   navigate("/",{replace:true})
+    // }
 
     const AxiosActionUserRegister = async () =>{
           console.log("this will send form data and get response from the server")
