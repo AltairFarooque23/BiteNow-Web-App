@@ -1,3 +1,3 @@
 # BiteNow-Web-App
 
-## Work in progress ⚒️🪧 will be live on 28-07-2023
+## Work in progress ⚒️🪧 will be live on 08-08-2023
