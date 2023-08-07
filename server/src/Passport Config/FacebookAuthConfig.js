@@ -9,7 +9,7 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'emails']
 }, async (accessToken, refreshToken, profile, done) =>{
     try {
-       console.log(profile); // Log the profile data
+       // Log the profile data
        // checking for user Facebook ID in our database
        const existingUser = await User.findOne({ "provider_id" : profile.id });
        if(existingUser){
