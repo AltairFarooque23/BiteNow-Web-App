@@ -35,7 +35,7 @@ const signUpWithEmail = async (req,res) =>{
         process.env.JWT_TOKEN_SECRET_KEY);
 
         // sending response to client
-        res.status(201).json({user:result,token:token});
+        res.status(201).json({authToken:token});
 
     }
     catch (error){
@@ -63,11 +63,10 @@ const signInWithEmail = async (req,res) =>{
             email: existinguser.email,
             id: existinguser._id
         },
-        process.env.JWT_TOKEN_SECRET_KEY,{ expiresIn: '12h' });
+        process.env.JWT_TOKEN_SECRET_KEY,{ expiresIn: '3h' });
 
         return res.status(200).json({
-            user: existinguser,
-            token : token
+            authToken : token
         })
     }
     catch(error){
