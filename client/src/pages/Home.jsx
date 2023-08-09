@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import NavBar from '../components/Navigation components/NavBar';
 
@@ -12,12 +12,31 @@ import Footer from '../components/common components/Footer';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const [searchResults , setSearchResults] = useState(null);
+  const [searchLocation,setsearchLocation] =  useState(null);
+
+  const handleSeachResults = (results) =>{
+        if(results === ''){
+          setSearchResults(null)
+        }
+        else{
+          setSearchResults(results);
+        }
+  }
+  const handleSeachLocationChange = (value) =>{
+    if(value === ''){
+      setsearchLocation(null)
+    }
+    else{
+      setsearchLocation(value);
+    }
+  }
   return (
     <div className='w-full flex flex-col items-center overflow-x-hidden scroll-smooth'>
         {/* nav bar */}
-        <NavBar showSeachBar={true} />
+        <NavBar showSeachBar={true} handleSearchBar={handleSeachResults} handleLocation={handleSeachLocationChange}  />
         <div className='absolute top-[11vh] w-full z-20'>
-           <SearchResultsContainer locations={null} results={null} />
+           <SearchResultsContainer locations={searchLocation} results={searchResults} />
         </div>
         {/* banner auto moving carousal */}
         <BannersCarousal />

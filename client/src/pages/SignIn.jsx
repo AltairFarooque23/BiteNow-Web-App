@@ -21,17 +21,30 @@ function SignIn() {
       const navToSignUp = ()=>{
             navigate("/signup")
       }
+
+      // signup with Google
+      const AxiosSignUpWithGoogle = async (e)=>{
+            e.preventDefault()
+            window.location = "http://localhost:8000/auth/google";
+      }
+
+      // signup with facebook
+      const AxiosSignUpWithFacebook = async (e)=>{
+            e.preventDefault()
+            window.location = "http://localhost:8000/auth/facebook";
+
+      }
       return (
         <div className='w-full h-[100vh] flex items-center justify-center'>
             <div className='w-[30%] h-[90%] border-2 rounded-xl bg-white shadow-xl flex flex-col items-center'>
                 <p className='text-2xl font-bold mt-10'> <span className='text-green-400'>Welcome</span> Back!</p>
                 <p className='text-center w-[75%] font-medium text-slate-500 text-sm mt-6'>Sign in to your Bitenow account and continue your food adventure</p>
                 <div className='w-[90%] flex justify-evenly mt-6'>
-                    <button className='w-[10vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
+                    <button onClick={AxiosSignUpWithGoogle} className='w-[10vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
                         <img src={GoogleICon} alt="" width={18}/>
                         <p className='text-lg font-medium ml-2'>Google</p>
                     </button>
-                    <button className='w-[10vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
+                    <button onClick={AxiosSignUpWithFacebook} className='w-[10vw] h-[5vh] border-gray-200 border-2 rounded-md flex justify-center items-center shadow-sm'>
                       <img src={Facebook} alt="" width={20}/>
                       <p className='text-lg font-medium ml-2'>
                         Facebook

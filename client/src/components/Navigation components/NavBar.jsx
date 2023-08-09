@@ -1,11 +1,41 @@
-import React from 'react'
+import React,{useEffect} from 'react';
+import io from "socket.io-client";
 // assets
 import MapPin from "../../Assets/pin.png";
 import SearchLens from "../../Assets/search.png";
 import Cart from "../../Assets/cart.png";
 import User from "../../Assets/user.png";
 
-function NavBar({showSeachBar}) {
+
+
+function NavBar({showSeachBar , handleSearchBar, handleLocation}) {
+  console.log('NavBar component rendered'); // Add this line
+  // connected the socket to server end point
+  const socket = io('http://localhost:8000/');
+  // socket listening to events
+  socket.on('connection', function() {
+    console.log('Connected to server');
+  });
+
+  socket.on('found',(results)=>{
+        console.log(results);
+        handleSearchBar(results)
+  })
+  // sending search input and quering data
+  const sendSearchQuery = (query) => {
+        socket.emit('search',query);
+        if(query===''){
+          handleSearchBar(null)
+        }
+  };
+
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+      socket.off('found'); // Unsubscribe when the component unmounts
+    };
+  });
+
   return (
     <nav className={`w-full h-[12vh] flex items-center ${ showSeachBar ? "justify-evenly" : "justify-between"} px-12`}>
           {/* brand name */}
@@ -19,11 +49,12 @@ function NavBar({showSeachBar}) {
             <div className='w-full h-[58%] bg-slate-100 flex items-center  rounded-md relative'>
                  <img className='ml-4' src={MapPin} alt="" width={20}/>
                  <input className = 'w-[15%] bg-slate-100 mx-4 outline-none' 
-                        type="text" placeholder='Hyderabad'/>
+                        type="text" placeholder='Hyderabad'
+                        onChange={(e)=>{handleLocation(e.target.value)}}/>
                  <span className='h-[60%] w-[2px] bg-slate-300'></span>
                  <input className='w-[65%] mx-4 bg-slate-100 outline-none'
                         placeholder="“Search for the best biryani's in your city”"
-                 type="text" />
+                 type="text" onKeyDown={(e)=>{sendSearchQuery(e.target.value)}}/>
                  <img src={SearchLens} alt="" width={20}/>
             </div>
           </div> : '' }
