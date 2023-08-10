@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 
 import NavBar from '../components/Navigation components/NavBar';
 
@@ -9,9 +9,9 @@ import CategoryCarousals from '../components/Home/CategoryCarousals';
 import MostFaqComponent from '../components/Home/MostFaqComponent';
 import SearchResultsContainer from '../components/Searchbar/SearchResultsContainer';
 import Footer from '../components/common components/Footer';
-import { useNavigate } from 'react-router-dom';
 
-function Home() {
+
+function Home({socket}) {
   const [searchResults , setSearchResults] = useState(null);
   const [searchLocation,setsearchLocation] =  useState(null);
 
@@ -34,7 +34,7 @@ function Home() {
   return (
     <div className='w-full flex flex-col items-center overflow-x-hidden scroll-smooth'>
         {/* nav bar */}
-        <NavBar showSeachBar={true} handleSearchBar={handleSeachResults} handleLocation={handleSeachLocationChange}  />
+        <NavBar showSeachBar={true} handleSearchBar={handleSeachResults} handleLocation={handleSeachLocationChange} socket={socket} />
         <div className='absolute top-[11vh] w-full z-20'>
            <SearchResultsContainer locations={searchLocation} results={searchResults} />
         </div>

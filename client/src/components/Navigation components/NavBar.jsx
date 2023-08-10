@@ -1,22 +1,22 @@
 import React,{useEffect} from 'react';
-import io from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 // assets
 import MapPin from "../../Assets/pin.png";
 import SearchLens from "../../Assets/search.png";
 import Cart from "../../Assets/cart.png";
 import User from "../../Assets/user.png";
 
-
-
-function NavBar({showSeachBar , handleSearchBar, handleLocation}) {
+function NavBar({showSeachBar , handleSearchBar, handleLocation ,socket}) {
   console.log('NavBar component rendered'); // Add this line
   // connected the socket to server end point
-  const socket = io('http://localhost:8000/');
   // socket listening to events
-  socket.on('connection', function() {
-    console.log('Connected to server');
+  socket.on("connect", () => {
+    console.log("socket connection",socket.connected); // true
   });
-
+  
+  socket.on("disconnect", () => {
+    console.log("socket connection",socket.connected); // false
+  });
   socket.on('found',(results)=>{
         console.log(results);
         handleSearchBar(results)
@@ -31,7 +31,6 @@ function NavBar({showSeachBar , handleSearchBar, handleLocation}) {
 
   useEffect(() => {
     return () => {
-      socket.disconnect();
       socket.off('found'); // Unsubscribe when the component unmounts
     };
   });
