@@ -86,7 +86,7 @@ app.use("/auth",userRouter);
 
  // Listen for connections
  io.on('connection', (socket) => {
-    console.log('A user connected');
+    console.log(`A user connected ${socket.id}`);
     // Handle search event
     // gets the data from database based on search term or query
     socket.on('search', async (searchTerm) => {
