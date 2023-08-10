@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useEffect} from 'react';
+import { io } from "socket.io-client";
 import { BrowserRouter as Router , Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -11,10 +12,19 @@ import OTASingUp from "./pages/OTASingUp";
 import VerifyOTP from "./pages/VerifyOTP";
 
 function App() {
+  // Initialize the socket connection
+  const socket = io('http://localhost:8000');
+
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
+
   return (
     <Router>
       <Routes>
-        <Route path ="/" element={<Home />} />
+        <Route path ="/" element={<Home socket={socket}/>} />
         <Route path ="/signup" element={<SignUp />} />
         <Route path ="/otpsignup" element={<OTASingUp />} />
         <Route path ="/otpverify" element={<VerifyOTP />} />
